@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class City(models.Model):
@@ -9,3 +10,7 @@ class City(models.Model):
 
     class Meta:
         ordering = ['name']
+
+    def get_absolute_url(self):
+        """Redirect after the make form to detail page."""
+        return reverse('detail', kwargs={'pk': self.pk})
