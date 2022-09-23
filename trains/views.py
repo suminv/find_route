@@ -1,8 +1,9 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DeleteView, DetailView
+from django.views.generic import ListView, DeleteView, DetailView, CreateView
 
+from trains.forms import TrainForm
 from trains.models import Train
 
 
@@ -21,3 +22,10 @@ class TrainDetailView(DetailView):
     queryset = Train.objects.all()
     template_name = 'trains/detail.html'
     success_url = reverse_lazy('trains:detail')
+
+
+class TrainCreateView(SuccessMessageMixin, CreateView):
+    model = Train
+    form_class = TrainForm
+    template_name = 'trains/create.html'
+    success_message = "%(name)s was created successfully!"

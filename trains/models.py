@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 
 from cities.models import City
 
@@ -32,3 +33,7 @@ class Train(models.Model):
         """The rewrite method save()"""
         self.clean()
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        """Redirect after the make form to detail page."""
+        return reverse('trains:detail', kwargs={'pk': self.pk})
