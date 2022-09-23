@@ -26,8 +26,10 @@
                     <td>{{ train.from_city }}</td>
                     <td>{{ train.to_city }}</td>
                     <td>{{ train.travel_time }}</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td>&nbsp;<a href="{% url 'trains:update' pk=train.id %}"><button type="submit" class="btn
+                    btn-primary">Update</button></a></td>
+                    <td><a href="{% url 'trains:delete' pk=train.id %}"><button type="submit" class="btn
+                    btn-danger">Delete</button></a></td>
                 </tr>
 
 
