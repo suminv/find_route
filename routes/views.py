@@ -1,15 +1,27 @@
-from django.views.generic import ListView
+from django.contrib import messages
+from django.shortcuts import render
 from routes.forms import RouteForm
-from routes.models import Route
+from routes.utils import get_routes
 
 
-class RouteListView(ListView):
-    model = Route
-    template_name = 'routes/route.html'
+def home(request):
+    form = RouteForm()
+    return render(request, 'routes/route.html', {'form': form})
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        """For add context on page"""
-        context = super().get_context_data(**kwargs)
+
+def find_routes(request):
+    if request.method == 'POST':
+        form = RouteForm(request.POST)
+        if form.is_valid():
+            try:
+                context = get_routes(request, form)
+            except ValueError as e:
+                messages.error(request, e)
+                return render(request, 'routes/route.html', {'form': form})
+            return render(request, 'routes/route.html', context)
+        return render(request, 'routes/route.html', {'form': form})
+    else:
         form = RouteForm()
-        context['form'] = form
-        return context
+        messages.error(request, 'No data for searching')
+        return render(request, 'routes/route.html', {'form': form})
+
