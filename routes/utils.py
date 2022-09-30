@@ -70,14 +70,14 @@ def get_routes(request, form):
         if len(routes) == 1:
             sorted_routes = routes
         else:
-            times = list(set(r['total_time'] for r in routes))
+            times = list(set(r['travel_time'] for r in routes))
             times = sorted(times)
             for time in times:
                 for route in routes:
-                    if time == route['total_time']:
+                    if time == route['travel_time']:
                         sorted_routes.append(route)
 
         context['routes'] = sorted_routes
-        context['cities'] = {'from_city': from_city.name, 'to_city': to_city.name}
+        context['cities'] = {'from_city': from_city, 'to_city': to_city}
         return context
 
