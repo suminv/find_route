@@ -1,7 +1,8 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 
 from cities.models import City
 from routes.forms import RouteForm, RouteModelForm
@@ -30,7 +31,6 @@ def find_routes(request):
         form = RouteForm()
         messages.error(request, 'No data for searching')
         return render(request, 'routes/route.html', {'form': form})
-
 
 
 def add_route(request):
@@ -63,7 +63,6 @@ def add_route(request):
         return redirect('/')
 
 
-
 def save_route(request):
     if request.method == 'POST':
         form = RouteModelForm(request.POST)
@@ -77,7 +76,6 @@ def save_route(request):
         return redirect('/')
 
 
-
 class RouteListView(ListView):
     paginate_by = 3
     model = Route
@@ -88,3 +86,14 @@ class RouteDetailView(DetailView):
     queryset = Route.objects.all()
     template_name = 'routes/detail.html'
     success_url = reverse_lazy('detail')
+
+
+class RouteDeleteView(LoginRequiredMixin, DeleteView):
+    model = Route
+    template_name = 'routes/route_confirm_delete.html'
+    success_url = reverse_lazy('home')
+    success_message = 'Route was deleted successfully!'
+
+    def get_success_message(self, cleaned_data):
+        """Alert message for delete route."""
+        return self.success_message

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Delete the route {% endblock %}
+{% block content %}
+
+    <h1>Delete the route</h1>
+
+<form method="post">
+     {% csrf_token %}
+     <p>Are you sure you want to delete the route {{ route.name }} ?</p>
+     <p>This cannot be undone!</p>
+     <input type="submit" class="btn btn-danger" value="Delete"/>
+ </form>
+
+{% endblock %}
