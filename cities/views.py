@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
@@ -10,14 +11,14 @@ def index(request):
     return render(request, 'cities/index.html')
 
 
-class CityCreateView(SuccessMessageMixin, CreateView):
+class CityCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = City
     form_class = CityForm
     template_name = 'cities/create.html'
     success_message = "%(name)s was created successfully!"
 
 
-class CityUpdateView(SuccessMessageMixin, UpdateView):
+class CityUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = City
     form_class = CityForm
     template_name = 'cities/update.html'
@@ -32,7 +33,7 @@ class CityDetailView(DetailView):
 
 
 
-class CityDeleteView(SuccessMessageMixin, DeleteView):
+class CityDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = City
     template_name = 'cities/delete.html'
     success_url = reverse_lazy('cities')

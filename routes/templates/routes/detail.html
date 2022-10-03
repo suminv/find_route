@@ -15,6 +15,7 @@
                     <th>To</th>
                     <th>Time in travel</th>
                     <th>List of trains on route</th>
+                    <th>&nbsp;</th>
 
                 </tr>
                 <tr>
@@ -27,6 +28,13 @@
                             <p>{{ train }}, time in route {{ train.travel_time }}</p>
                         {% endfor %}
                     </td>
+                        <td>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'delete' pk=object.pk %}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </a>
+                            {% endif %} &nbsp;
+                        </td>
 
                 </tr>
             </table>

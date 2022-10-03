@@ -14,10 +14,16 @@
             {% for city in page_obj %}
                 <tr>
                     <td><a href="{% url 'detail' pk=city.id %}">{{ city.name }}</a></td>
+
+                    {% if user.is_authenticated %}
                     <td><a href="{% url 'update' pk=city.id %}"><button type="submit" class="btn
                     btn-primary">Update</button></a></td>
                     <td><a href="{% url 'delete' pk=city.id %}"><button type="submit" class="btn
                     btn-danger">Delete</button></a></td>
+                {% else %}
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    {% endif %}
                 </tr>
 
 
