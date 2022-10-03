@@ -1,20 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 from django.contrib.messages.views import SuccessMessageMixin
-from cities.forms import HtmlForm, CityForm
+from cities.forms import CityForm
 from cities.models import City
-
-
-def index(request):
-    return render(request, 'cities/index.html')
 
 
 class CityCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = City
     form_class = CityForm
     template_name = 'cities/create.html'
+    success_url = reverse_lazy('cities:cities')
     success_message = "%(name)s was created successfully!"
 
 
@@ -22,21 +18,21 @@ class CityUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = City
     form_class = CityForm
     template_name = 'cities/update.html'
-    success_url = reverse_lazy('cities')
+    success_url = reverse_lazy('cities:cities')
     success_message = "%(name)s was updated successfully!"
 
 
 class CityDetailView(DetailView):
     queryset = City.objects.all()
     template_name = 'cities/detail.html'
-    success_url = reverse_lazy('cities')
+    success_url = reverse_lazy('cities:cities')
 
 
 
-class CityDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class CityDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = City
     template_name = 'cities/delete.html'
-    success_url = reverse_lazy('cities')
+    success_url = reverse_lazy('cities:cities')
     success_message = 'City was deleted successfully!'
 
     def get_success_message(self, cleaned_data):

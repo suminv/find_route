@@ -5,7 +5,7 @@ from routes.views import find_routes, home, add_route, save_route, RouteListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cities/', include('cities.urls')),
+    path('cities/', include(('cities.urls', 'cities'), namespace='cities')),
     path('trains/', include(('trains.urls', 'trains'), namespace='trains')),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('find_routes/', find_routes, name='find_routes'),

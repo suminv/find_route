@@ -1,5 +1,5 @@
-{% url 'cities' as cities_home_url %}
-{% url 'create' as cities_create_url %}
+{% url 'cities:cities' as cities_home_url %}
+{% url 'cities:create' as cities_create_url %}
 {% url 'trains:train' as train_home_url %}
 {% url 'trains:create' as train_create_url %}
 
@@ -24,7 +24,7 @@
       <ul class="navbar-nav m-lg-auto">
         <li class="nav-item">
           <a class="nav-link {% if request.path == cities_home_url %}active {% endif %}"
-              href="{% url 'cities' %}">Cities</a>
+              href="{% url 'cities:cities' %}">Cities</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {% if request.path == train_home_url %}active{% endif %}"
@@ -41,7 +41,7 @@
           </a>
 
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'create' %}">Add new city</a></li>
+            <li><a class="dropdown-item" href="{% url 'cities:create' %}">Add new city</a></li>
             <li><a class="dropdown-item" href="{% url 'trains:create' %}">Add new train</a></li>
           </ul>
               </li>

@@ -34,17 +34,17 @@ class UserLoginForm(forms.Form):
 class UserRegistrationForm(forms.ModelForm):
     username = forms.CharField(label='username', widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Введите username'
+        'placeholder': 'Enter username'
     }))
     password = forms.CharField(label='password', widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'Введите password'
-    }))
+            'placeholder': 'Enter password'
+        }))
     password2 = forms.CharField(label='password', widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'Введите password'
+            'placeholder': 'Enter password'
         }))
 
     class Meta:
@@ -54,7 +54,6 @@ class UserRegistrationForm(forms.ModelForm):
     def clean_password2(self):
         data = self.cleaned_data
         if data['password'] != data['password2']:
-            raise forms.ValidationError('Пароли не совпадают')
+            raise forms.ValidationError("Passwords don't match")
         return data['password2']
-
 

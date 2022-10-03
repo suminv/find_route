@@ -77,7 +77,7 @@ def save_route(request):
 
 
 class RouteListView(ListView):
-    paginate_by = 3
+    paginate_by = 5
     model = Route
     template_name = 'routes/list.html'
 
